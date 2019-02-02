@@ -29,7 +29,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$root.cat);
         this.cat = this.$root.cat.filter(cat => cat['.key'] == this.$route.params.id)[0];
     }
 }

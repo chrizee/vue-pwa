@@ -13,7 +13,9 @@ firebase.initializeApp(config);
 
 //get firebase database instance
 const database = firebase.database();
+const storage = firebase.storage();
 
 export {
-    database
+    database,
+    storage
 }

@@ -8,7 +8,7 @@
         </div>
         <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty">
-            <input id="username" v-model="title" type="text" class="mdl-textfield__input"/>
+            <input id="username" @keypress.enter="postCat" v-model="title" type="text" class="mdl-textfield__input"/>
             <label for="username" class="mdl-textfield__label">Describe me</label>
             </div>
             <div class="actions">
@@ -32,7 +32,7 @@
     mounted () {
         //changed format to json to prevent the use of xml-parser
       this.$http.get('https://thecatapi.com/api/images/get?format=json&results_per_page=1').then(response => {
-        this.catUrl = response.body[0].url
+        this.catUrl = response.body[0].url;
       })
     },
     methods: {

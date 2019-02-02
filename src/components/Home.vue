@@ -3,7 +3,7 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="picture in pictures" :key="picture.id" class="image-card" @click="displayDetails(picture['.key'])">
+        <div v-for="picture in getCats()" :key="picture.id" class="image-card" @click="displayDetails(picture['.key'])">
           <div class="image-card__picture">
             <img :src="picture.url" />
           </div>
@@ -16,6 +16,9 @@
     <router-link class="add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/post">
       <i class="material-icons">add</i>
     </router-link>
+    <router-link class="take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/camera">
+      <i class="material-icons">camera_alt</i>
+    </router-link>
 </div>
 </template>
 
@@ -23,13 +26,37 @@
 export default {
    data() {
        return {
-           pictures: this.$root.cat
+          //pictures: this.$root.cat
        }
    },
    methods: {
        displayDetails(id) {
-           this.$router.push({name: "detail", params: {id}});
-       }
+          this.$router.push({name: "detail", params: {id}});
+       },
+       getCats() {
+         //if network is available, get the cats from firebase and save to local storage\
+         //else get cats from local storage
+        if (navigator.onLine) {   
+          this.saveCatsToCache()
+          return this.$root.cat
+        } else {
+          return JSON.parse(localStorage.getItem('cats'))
+        }
+      },
+      saveCatsToCache() {
+        this.$root.$firebaseRefs.cat.orderByChild('created_at').once('value', (snapshot) => {
+          let cachedCats = []
+          snapshot.forEach((catsnapshot) => {
+            let cachedCat = catsnapshot.val()
+            cachedCat['.key'] = catsnapshot.key
+            cachedCats.push(cachedCat)
+          })
+          localStorage.setItem('cats', JSON.stringify(cachedCats))
+        })
+      }
+   },
+   mounted() {
+     this.saveCatsToCache();
    }
 }
 </script>
@@ -60,5 +87,11 @@ export default {
     color: #fff;
     font-size: 14px;
     font-weight: bold;
+  }
+  .take-picture-button {
+    position: fixed;
+    right: 24px;
+    bottom: 90px;
+    z-index: 5;
   }
 </style>

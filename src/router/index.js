@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Home from '@/components/Home';
 import Detail from '@/components/Detail';
 import Post from '@/components/Post';
+import Camera from '@/components/Camera';
 
 Vue.use(Router)
 
@@ -23,6 +23,11 @@ export default new Router({
       path: "/post",
       name: "post",
       component: Post
+    },
+    {
+      path: "/camera",
+      name: "camera",
+      component: Camera
     }
   ]
 })

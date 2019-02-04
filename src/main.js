@@ -10,8 +10,7 @@ import VueResource from 'vue-resource'
 Vue.use(vuefire);
 Vue.use(VueResource);
 
-Vue.config.productionTip = false
-console.log(database, 'efe');
+Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

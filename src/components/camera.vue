@@ -37,13 +37,13 @@ export default {
     },
     mounted () {
         //get the user permission to use the camera
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         .then(mediaStream => {
             this.mediaStream = mediaStream;
             this.$refs.video.srcObject = mediaStream;
             this.$refs.video.play();
         })
-        .catch(error => console.error('getUserMedia() error:', error))
+        .catch(error => alert('getUserMedia() error:'+ error.message))
     },
     destroyed () {      //close all open tracks(camera) when the component is destroyed
         const tracks = this.mediaStream.getTracks()

@@ -16,5 +16,13 @@
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#44ee77",
-  "theme_color": "#4DBA87"
+  "theme_color": "#4DBA87",
+  "permissions": {
+    "audio-capture": {
+      "description": "Required to capture audio using getUserMedia()"
+    },
+    "video-capture": {
+      "description": "Required to capture video using getUserMedia()"
+    }
+  }
 }

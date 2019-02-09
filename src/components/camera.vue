@@ -43,7 +43,7 @@ export default {
             this.$refs.video.srcObject = mediaStream;
             this.$refs.video.play();
         })
-        .catch(error => alert('getUserMedia() error:'+ error.message))
+        .catch(error => alert('Error-getUserMedia() error:'+ error.message))
     },
     destroyed () {      //close all open tracks(camera) when the component is destroyed
         const tracks = this.mediaStream.getTracks()
